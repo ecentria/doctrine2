@@ -18,6 +18,7 @@ before_install:
 
 install:
   - rm composer.lock
+  - SYMFONY_REQUIRE='~2.8' composer global require symfony/flex dev-master
   - travis_retry composer update --prefer-dist
 
 script:
