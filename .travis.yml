@@ -17,7 +17,9 @@ before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   - composer self-update
 
-install: travis_retry composer update --prefer-dist
+install:
+  - SYMFONY_REQUIRE='2.8.*' composer global require symfony/flex dev-master
+  - travis_retry composer update --prefer-dist
 
 script:
   - if [[ "$DB" == "mysql" || "$DB" == "mariadb" ]]; then mysql -e "CREATE SCHEMA doctrine_tests; GRANT ALL PRIVILEGES ON doctrine_tests.* to travis@'%'"; fi
